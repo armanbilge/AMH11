@@ -1,7 +1,7 @@
 name := "AMH11"
 organization := "org.compevol"
 version := "1.0.0"
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 libraryDependencies += "com.googlecode.matrix-toolkits-java" % "mtj" % "1.0.4"
 
 publishMavenStyle := true
