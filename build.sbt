@@ -1,6 +1,6 @@
 name := "AMH11"
 organization := "org.compevol"
-version := "1.0.0"
+version := "1.1"
 scalaVersion := "2.11.8"
 libraryDependencies += "com.googlecode.matrix-toolkits-java" % "mtj" % "1.0.4"
 

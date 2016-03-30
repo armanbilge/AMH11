@@ -48,16 +48,16 @@ public final class AMH11 {
     public static double[] expmv(double t, double[][] A, double[] b) {
         return Matrices.getArray(
                 expmv(t, new DenseMatrix(A), new DenseVector(b), null, true,
-                        false, true, false));
+                        false, true, false, false));
     }
 
     public static Vector expmv(double t, Matrix A, Vector b) {
-        return expmv(t, A, b, null, true, false, true, true);
+        return expmv(t, A, b, null, true, false, true, true, false);
     }
 
     public static Vector expmv(double t, Matrix A,
             Vector b, Matrix M, boolean shift, boolean bal,
-            boolean fullTerm, boolean copy) {
+            boolean fullTerm, boolean copy, boolean approx) {
 
         if (copy) {
             A = A.copy();
@@ -78,7 +78,7 @@ public final class AMH11 {
         if (M == null) {
             tt = 1.0;
             M = selectTaylorDegree(
-                    A.copy().scale(t), b, 55, 8, shift, bal, false);
+                    A.copy().scale(t), b, 55, 8, shift, bal, false, approx);
         } else {
             tt = t;
         }
@@ -140,7 +140,7 @@ public final class AMH11 {
 
     public static Matrix selectTaylorDegree(Matrix A,
             Vector b, int mMax, int pMax, boolean shift,
-            boolean bal, boolean forceEstm) {
+            boolean bal, boolean forceEstm, boolean approx) {
         int n = A.numRows();
         if (bal) {
             throw new RuntimeException("Not implemented!");
@@ -163,7 +163,7 @@ public final class AMH11 {
             double[] eta = new double[pMax];
             alpha = new double[pMax - 1];
             for (int p = 0; p < pMax; ++p) {
-                double[] ck = normAm(A, p+2);
+                double[] ck = normAm(A, p+2, approx);
                 double c = Math.pow(ck[0], 1.0/(p+2));
                 mv = mv + ck[1];
                 eta[p] = c;
@@ -180,11 +180,11 @@ public final class AMH11 {
         return M;
     }
 
-    private static double[] normAm(final Matrix A, final int m) {
+    private static double[] normAm(final Matrix A, final int m, final boolean approx) {
         int t = 1;
         final int n = A.numColumns();
         double c, mv;
-        if (Utils.isPositive(A)) {
+        if (approx || Utils.isPositive(A)) {
             Vector e = Utils.fill(new DenseVector(n), 1.0);
             for (int j = 0; j < m; ++j)
                 e = A.transMult(e, new DenseVector(n));

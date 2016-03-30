@@ -40,6 +40,7 @@ package object amh11 {
             M: Matrix = null,
             shift: Boolean = true,
             bal: Boolean = false,
-            fullTerm: Boolean = false): Vector = AMH11.expmv(t, A, b, M, shift, bal, fullTerm, true)
+            fullTerm: Boolean = false,
+            approx: Boolean = false): Vector = AMH11.expmv(t, A, b, M, shift, bal, fullTerm, true, approx)
 
 }
