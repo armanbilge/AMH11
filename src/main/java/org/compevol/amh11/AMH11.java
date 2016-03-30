@@ -90,9 +90,6 @@ public final class AMH11 {
         } else {
             mMax = M.numRows();
             Matrix U = Utils.ascendingDiagonal(mMax);
-//            Matrix C = Algebra.DEFAULT.mult(Algebra.DEFAULT
-//                    .transpose(M.assign(Functions.mult(Math.abs(tt)))
-//                            .assign(Functions.ceil)), U);
             Matrix C = Utils.ceil(M.scale(Math.abs(tt)))
                     .transAmult(U, new DenseMatrix(M.numColumns(),
                             U.numColumns()));
