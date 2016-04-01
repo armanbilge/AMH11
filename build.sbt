@@ -3,6 +3,7 @@ organization := "org.compevol"
 version := "1.1"
 scalaVersion := "2.11.8"
 libraryDependencies += "com.googlecode.matrix-toolkits-java" % "mtj" % "1.0.4"
+libraryDependencies += "net.sourceforge.f2j" % "arpack_combined_all" % "0.1"
 
 publishMavenStyle := true
 publishTo := {
